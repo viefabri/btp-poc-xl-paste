@@ -5,10 +5,13 @@
 @ObjectModel.semanticKey: ['CompanyCode', 'GLAccount'] // V4ドラフト用のキー宣言
 @VDM.viewType: #BASIC                                    // VDMレイヤー: 最下層のインターフェースビュー（物理テーブルとの1対1マッピング）
 
-/* Value Help用最適化: データ件数が少ない(XS)ことを宣言し、ドロップダウン表示を可能にする */
-@ObjectModel.resultSet.sizeCategory: #XS
+@ObjectModel.usageType: {
+    serviceQuality: #A,
+    sizeCategory:   #L,
+    dataClass:      #MASTER
+}
 
-define root view entity ZI_POC_GLMST_001
+define view entity ZI_POC_GLMST_001
   as select from zpoc_glmst_001 as GLAccount
 {
       // ======================================================================

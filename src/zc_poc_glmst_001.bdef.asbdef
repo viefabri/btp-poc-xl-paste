@@ -1,5 +1,5 @@
 projection;
-//strict ( 2 );
+strict ( 2 );
 use draft; // UI側でDraft機能（Excelペースト時の一時保存）を使用可能にする
 
 define behavior for ZC_POC_GLMST_001 alias GLAccount
