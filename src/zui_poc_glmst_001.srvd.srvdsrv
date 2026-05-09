@@ -1,0 +1,4 @@
+@EndUserText.label: '勘定科目マスタ(サービス定義)'
+define service ZUI_POC_GLMST_001 {
+  expose ZC_POC_GLMST_001 as GLAccount;
+}
