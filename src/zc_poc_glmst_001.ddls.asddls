@@ -7,7 +7,7 @@
 
 define root view entity ZC_POC_GLMST_001
   provider contract transactional_query               // トランザクションクエリの宣言: RAPでCRUD(Draft含む)を行うUI用ビューとしての標準規格
-  as projection on ZI_POC_GLMST_001                   // ソースとなるInterface Viewを指定
+  as projection on ZR_POC_GLMST_001                   // ソースとなるInterface Viewを指定
 {
       // ======================================================================
       // 1. ビジネスキー項目
