@@ -11,7 +11,7 @@ ENDCLASS.
 
 CLASS lhc_GLAccount IMPLEMENTATION.
 
-METHOD get_instance_authorizations.
+  METHOD get_instance_authorizations.
     " PoC環境用：すべての操作（Create/Update/Delete）に対して権限エラーを出さない
     LOOP AT keys INTO DATA(ls_key).
       APPEND VALUE #( %tky = ls_key-%tky
@@ -21,9 +21,9 @@ METHOD get_instance_authorizations.
     ENDLOOP.
   ENDMETHOD.
 
-METHOD validateExcelData.
+  METHOD validateExcelData.
     " 1. ユーザーが入力（ペースト）したデータをドラフトテーブルから読み込む
-    READ ENTITIES OF ZI_POC_GLMST_001 IN LOCAL MODE
+    READ ENTITIES OF ZR_POC_GLMST_001 IN LOCAL MODE
       ENTITY GLAccount
       FIELDS ( GLAccountType ShortText ) " 検証に必要な項目だけを読み込む
       WITH CORRESPONDING #( keys )
