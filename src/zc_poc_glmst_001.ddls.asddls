@@ -3,6 +3,7 @@
 @Metadata.allowExtensions: true                       // メタデータ拡張の許可: UIレイアウト定義を別ファイル(MDE)に分離する必須設定
 @Search.searchable: true                              // 検索機能の有効化: Fioriのグローバル検索バーを使用可能にする
 @ObjectModel.semanticKey: ['CompanyCode', 'GLAccount'] // セマンティックキー: ユーザーにとって意味のあるキー項目を指定 (Fioriのルーティング等で使用)
+@VDM.viewType: #CONSUMPTION
 
 define root view entity ZC_POC_GLMST_001
   provider contract transactional_query               // トランザクションクエリの宣言: RAPでCRUD(Draft含む)を行うUI用ビューとしての標準規格
