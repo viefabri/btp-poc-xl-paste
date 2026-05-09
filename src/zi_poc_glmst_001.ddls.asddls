@@ -2,6 +2,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED         // 権限チェック: 今回のPoCでは不要とする
 @EndUserText.label: '勘定科目マスタ'                     // テキスト: オブジェクトの用途を示すラベル
 @Metadata.ignorePropagatedAnnotations: false             // メタデータを引き継ぐ: 下位レイヤーのアノテーションを有効化
+@ObjectModel.semanticKey: ['CompanyCode', 'GLAccount'] // V4ドラフト用のキー宣言
 @VDM.viewType: #BASIC                                    // VDMレイヤー: 最下層のインターフェースビュー（物理テーブルとの1対1マッピング）
 
 /* Value Help用最適化: データ件数が少ない(XS)ことを宣言し、ドロップダウン表示を可能にする */
