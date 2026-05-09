@@ -1,0 +1,20 @@
+projection;
+strict ( 2 );
+use draft; // UI側でDraft機能（Excelペースト時の一時保存）を使用可能にする
+
+define behavior for ZC_POC_GLMST_001 alias GLAccount
+{
+  // 1. 基本的なデータ操作の許可
+  use create;
+  use update;
+  use delete;
+
+  // 2. Draft操作（下書きの編集・有効化・破棄など）の許可
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+
+  // 3. ABAPクラスで実装したバリデーションを呼び出すための準備処理を許可
+  use action Prepare;
+}

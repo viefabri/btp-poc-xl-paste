@@ -1,0 +1,64 @@
+managed implementation in class zbp_i_poc_glmst_001 unique;
+strict ( 2 );
+with draft; // Draft機能（下書き保存）の有効化宣言
+
+define behavior for ZI_POC_GLMST_001 alias GLAccount
+persistent table zpoc_glmst_001      // 本番データが保存される物理テーブル
+draft table zpoc_glmst_001_d         // ここでDraftテーブル名を指定
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt       // 排他制御（同時実行制御）の基準項目
+{
+  create;
+  update;
+  delete;
+
+  // システム管理項目は手入力を禁止（読取専用）
+  field ( readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy, LocalLastChangedAt;
+
+// 主キーは新規作成時のみ入力可とし、以後の変更を禁止する
+  field ( readonly : update ) CompanyCode, GLAccount;
+
+  // 属性項目のうち、常に必須入力とするものを明示
+  field ( mandatory ) GLAccountGroup, GLAccountType;
+
+  // 主キーは新規作成時(Excelペースト時)のみ必須とする
+  field ( mandatory : create ) CompanyCode, GLAccount;
+
+  // --- Draft標準アクション群 ---
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+
+  // --- バリデーションのフックポイント（Excelコピペ検証の要） ---
+  draft determine action Prepare
+  {
+    validation validateExcelData;
+  }
+
+  // バリデーション自体の定義（実装は後続のABAPクラスで行う）
+  validation validateExcelData on save { create; update; }
+
+  // --- 項目マッピング ---
+  // CDS Viewの論理名(CamelCase)と物理テーブルの項目名を紐付ける
+  mapping for zpoc_glmst_001
+  {
+    CompanyCode           = bukrs;
+    GLAccount             = saknr;
+    GLAccountGroup        = ktoks;
+    GLAccountType         = glaccount_type;
+    ShortText             = txt20;
+    LongText              = txt50;
+    FieldStatusGroup      = fstat;
+    Currency              = waers;
+    IsBalanceSheetAccount = xbala;
+    IsOpenItemManaged     = xgvlt;
+    CreatedBy             = created_by;
+    CreatedAt             = created_at;
+    LastChangedBy         = last_changed_by;
+    LocalLastChangedAt    = local_last_changed_at;
+    LastChangedAt         = last_changed_at;
+  }
+}
